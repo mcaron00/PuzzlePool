@@ -4,8 +4,8 @@ using System.Collections;
 public class Ball_White : Ball_Generic {
 
 	public float speed;
-	public GameObject arrowHelper;
-	public GameObject mouseTracker;
+	private GameObject arrowHelper;
+	private GameObject mouseTracker;
 
 	private bool isAiming;
 	private float helperY = 1.1f;
@@ -17,6 +17,12 @@ public class Ball_White : Ball_Generic {
 	private bool isHelperStarted;
 	private bool isSetToVanish;
 
+	/*void awake()
+	{
+		// on awake, find the arrowHelper and the mouseTracker
+		arrowHelper = GameObject.Find ("ArrowPlaneRoot");
+		mouseTracker = GameObject.Find ("mouseTrackerSphere");
+	}*/
 
 	private Renderer helperRend;
 
@@ -25,6 +31,9 @@ public class Ball_White : Ball_Generic {
 
 		base.Start();
 
+		// on awake, find the arrowHelper and the mouseTracker
+		arrowHelper = GameObject.Find ("ArrowPlaneRoot");
+		mouseTracker = GameObject.Find ("mouseTrackerSphere");
 
 
 		// Get renderer for helper
@@ -82,10 +91,10 @@ public class Ball_White : Ball_Generic {
 	// Detect click
 	void OnMouseDown ()
 	{
-		Debug.Log ("mouse down");
+		//Debug.Log ("mouse down");
 		// Only accept mouse input if ball is not rolling
 		if(GameManager.instance.checkShotOngoing () == false){
-			Debug.Log ("Shot allowed");
+			//Debug.Log ("Shot allowed");
 
 			// Bring arrow plane on top of ball
 			arrowHelper.transform.position = new Vector3(transform.position.x,helperY,transform.position.z);

@@ -15,9 +15,9 @@ public class ShotCounter : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
 	
-	}
+	}*/
 
 	public void updateShotCounter(string passedString)
 	{

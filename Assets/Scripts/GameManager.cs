@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour {
 
 		// Identify Ui Manager
 		uiManager = GetComponent<UiManager>();
+
+		// Load first level
+		Application.LoadLevelAdditive("Puzzle_Pool_TestLevel01");
 	}
 
 	public bool checkShotOngoing(){
@@ -166,24 +169,6 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		// Check for rolling balls
-		/*if(isBallsRolling == true){
-			isBallsRolling = false;
-			for(int i = 0; i < balls.Count; i++)
-			{
-				if (balls[i].checkRolling() == true)isBallsRolling = true;
-			}
-
-			// Catch the moment when balls stop rolling
-
-			if(isBallsRolling == false) 
-			{
-				Debug.Log ("All balls stopped");
-				inBetweenShots();
-			}
-		}*/
-
 
 	}
 
