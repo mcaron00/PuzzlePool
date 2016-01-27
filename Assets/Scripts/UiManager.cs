@@ -33,15 +33,28 @@ public class UiManager : MonoBehaviour {
 		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(0,0);
 	}
 
-	// Use this for initialization
-	void Start () {
-		// Find game over popup and game win popup
-		gameOverPopup = GameObject.Find("GameOverPopup").GetComponent<GameOverPopup>();
-		gameWinPopup = GameObject.Find("GameWinPopup").GetComponent<GameWinPopup>();
+	public void resetUi()
+	{
+		Debug.Log ("Resert UI");
+
+		// Init ui elements if not done yet
+		if(gameOverPopup == null  || gameWinPopup == null)
+		{
+			gameOverPopup = GameObject.Find("GameOverPopup").GetComponent<GameOverPopup>();
+			gameWinPopup = GameObject.Find("GameWinPopup").GetComponent<GameWinPopup>();
+		}
 
 		// Move game over pop up and game win popup out of the way
 		gameOverPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
 		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+	}
+
+	// Use this for initialization
+	void Start () {
+		// Find game over popup and game win popup
+
+
+		//resetUi();
 	}
 	
 	// Update is called once per frame

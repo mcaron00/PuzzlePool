@@ -38,8 +38,7 @@ public class GameManager : MonoBehaviour {
 		// Identify Ui Manager
 		uiManager = GetComponent<UiManager>();
 
-		// Load first level
-		Application.LoadLevelAdditive("Puzzle_Pool_TestLevel01");
+
 	}
 
 	public bool checkShotOngoing(){
@@ -112,9 +111,28 @@ public class GameManager : MonoBehaviour {
 		//Debug.Log ("Reported pocekts: " + pockets.Count);
 	}
 
+	private void loadLevel(string levelToLoad)
+	{
+		// Destroy previously loaded level
+		GameObject sceneMasterNode = GameObject.Find ("SceneMaster");
+		Object.Destroy (sceneMasterNode);
+
+		// Reset UI
+		uiManager.resetUi ();
+
+		// Load first level
+		Application.LoadLevelAdditive(levelToLoad);
+	}
+
+	public void replayButtonPressed()
+	{
+		Debug.Log ("Replay button pressed");
+
+		loadLevel ("Puzzle_Pool_TestLevel01");
+	}
+
 	public void reportBadBall()
 	{
-
 		doGameOver("ball");
 	}
 
@@ -156,6 +174,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		// Load level
+		loadLevel ("Puzzle_Pool_TestLevel01");
+
 		// Tweak gravity settings
 		Physics.gravity = new Vector3(0, -customGravity, 0);
 
