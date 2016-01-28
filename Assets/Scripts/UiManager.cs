@@ -35,7 +35,7 @@ public class UiManager : MonoBehaviour {
 
 	public void resetUi()
 	{
-		Debug.Log ("Resert UI");
+		//Debug.Log ("Resert UI");
 
 		// Init ui elements if not done yet
 		if(gameOverPopup == null  || gameWinPopup == null)

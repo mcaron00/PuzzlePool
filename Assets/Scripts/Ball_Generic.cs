@@ -30,7 +30,7 @@ public class Ball_Generic : MonoBehaviour {
 		// Report self to game manager
 		GameManager.instance.listBall(this);
 
-		Debug.Log ("Ball ready");
+		//Debug.Log ("Ball ready");
 	}
 
 	public void stopVelocityControl()

@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour {
 
 	void checkVictory()
 	{
-		Debug.Log ("good balls: " + goodBalls);
-		Debug.Log ("pockets: " + pockets.Count);
+		//Debug.Log ("good balls: " + goodBalls);
+		//Debug.Log ("pockets: " + pockets.Count);
 
 		if(goodBalls >= pockets.Count)
 		{
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
 		if(isGameOver == true) return;
 
 		isGameOver = true;
-		Debug.Log ("************* VICTORY!!!");
+		//Debug.Log ("************* VICTORY!!!");
 
 		// Display game win popup
 		uiManager.displayGameWin();
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour {
 		if(isGameOver == true) return;
 
 		isGameOver = true;
-		Debug.Log ("************* FAIL!!!");
+		//Debug.Log ("************* FAIL!!!");
 
 		// Display game over popup
 		uiManager.displayGameOver(reason);
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour {
 
 	public void replayButtonPressed()
 	{
-		Debug.Log ("Replay button pressed");
+		//Debug.Log ("Replay button pressed");
 
 		loadLevel ("Puzzle_Pool_TestLevel01");
 	}
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour {
 		// If they are all stopped, start "in between shots" phase
 		if (stoppedBalls >= balls.Count)
 		{
-			Debug.Log ("All balls stopped");
+			//Debug.Log ("All balls stopped");
 			isShotOngoing = false;
 			inBetweenShots();
 		}

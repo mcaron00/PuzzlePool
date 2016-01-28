@@ -20,7 +20,7 @@ public class Ball_White : Ball_Generic {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("Ball_White start");
+		//Debug.Log ("Ball_White start");
 		base.Start();
 
 		// on awake, find the arrowHelper and the mouseTracker
