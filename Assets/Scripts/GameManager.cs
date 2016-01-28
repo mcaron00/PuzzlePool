@@ -141,7 +141,8 @@ public class GameManager : MonoBehaviour {
 	{
 		//Debug.Log ("Replay button pressed");
 
-		loadLevel ("Puzzle_Pool_TestLevel01");
+		//loadLevel ("Puzzle_Pool_TestLevel01");
+		loadLevel ("Pul_TestLevel01_prefabs");
 	}
 
 	public void reportBadBall()
@@ -188,7 +189,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// Load level
-		loadLevel ("Puzzle_Pool_TestLevel01");
+		loadLevel ("Pul_TestLevel01_prefabs");
 
 		// Tweak gravity settings
 		Physics.gravity = new Vector3(0, -customGravity, 0);
