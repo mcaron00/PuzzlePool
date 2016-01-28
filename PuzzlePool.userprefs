@@ -1,11 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UiManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Ball_Generic.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameManager.cs" Line="122" Column="3" />
-      <File FileName="Assets/Scripts/UiManager.cs" Line="38" Column="27" />
-      <File FileName="Assets/Scripts/Ball_White.cs" Line="25" Column="5" />
-      <File FileName="Assets/Scripts/GameOverPopup.cs" Line="14" Column="5" />
+      <File FileName="Assets/Scripts/Ball_Generic.cs" Line="12" Column="25" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="41" Column="3" />
+      <File FileName="Assets/Scripts/UiManager.cs" Line="44" Column="80" />
+      <File FileName="Assets/Scripts/Ball_White.cs" Line="24" Column="16" />
+      <File FileName="Assets/Scripts/GameOverPopup.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Ball_Blue.cs" Line="8" Column="6" />
+      <File FileName="Assets/Scripts/Ball_Red.cs" Line="8" Column="23" />
+      <File FileName="Assets/Scripts/GameWinPopup.cs" Line="14" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -3,10 +3,8 @@
 -nowarn:0169
 -out:'Temp/Assembly-CSharp.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
--r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll'
 -r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
 -r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll'
--r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
 -r:'/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll'
 -define:UNITY_5_2_2
@@ -72,7 +70,6 @@
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
 -define:Pocket_Blue
-'Assets/GameWinPopup.cs'
 'Assets/Scripts/Ball_Blue.cs'
 'Assets/Scripts/Ball_Generic.cs'
 'Assets/Scripts/Ball_Red.cs'
@@ -80,6 +77,7 @@
 'Assets/Scripts/GameManager.cs'
 'Assets/Scripts/GameOverPopup.cs'
 'Assets/Scripts/GameUiManager.cs'
+'Assets/Scripts/GameWinPopup.cs'
 'Assets/Scripts/PocketDetector.cs'
 'Assets/Scripts/ShotCounter.cs'
 'Assets/Scripts/UiManager.cs'

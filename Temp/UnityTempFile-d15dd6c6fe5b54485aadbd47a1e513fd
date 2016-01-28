@@ -70,7 +70,6 @@
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
 -define:Pocket_Blue
-'Assets/GameWinPopup.cs'
 'Assets/Scripts/Ball_Blue.cs'
 'Assets/Scripts/Ball_Generic.cs'
 'Assets/Scripts/Ball_Red.cs'
@@ -78,6 +77,7 @@
 'Assets/Scripts/GameManager.cs'
 'Assets/Scripts/GameOverPopup.cs'
 'Assets/Scripts/GameUiManager.cs'
+'Assets/Scripts/GameWinPopup.cs'
 'Assets/Scripts/PocketDetector.cs'
 'Assets/Scripts/ShotCounter.cs'
 'Assets/Scripts/UiManager.cs'

@@ -29,11 +29,11 @@ public class GameManager : MonoBehaviour {
 
 		//Debug.Log ("Game Manager Ready");
 		balls = new List<Ball_Generic>();
-		balls.Clear ();
+
 
 		pockets = new List<PocketDetector>();
-		pockets.Clear ();
-		isShotOngoing = false;
+
+
 
 		// Identify Ui Manager
 		uiManager = GetComponent<UiManager>();
@@ -113,6 +113,19 @@ public class GameManager : MonoBehaviour {
 
 	private void loadLevel(string levelToLoad)
 	{
+		// Clear lists
+		balls.Clear ();
+		pockets.Clear ();
+
+		// Reset phase trackers
+		isShotOngoing = false;
+		goodBalls = 0;
+		shotCount = 0;
+		isGameOver = false;
+		
+		// Update HUD
+		updateHud();
+
 		// Destroy previously loaded level
 		GameObject sceneMasterNode = GameObject.Find ("SceneMaster");
 		Object.Destroy (sceneMasterNode);
@@ -180,12 +193,7 @@ public class GameManager : MonoBehaviour {
 		// Tweak gravity settings
 		Physics.gravity = new Vector3(0, -customGravity, 0);
 
-		goodBalls = 0;
-		shotCount = 0;
-		isGameOver = false;
 
-		// Update HUD
-		updateHud();
 	}
 	
 	// Update is called once per frame

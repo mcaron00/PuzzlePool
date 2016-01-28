@@ -16,19 +16,11 @@ public class Ball_White : Ball_Generic {
 	private float forceMultiplier = 150f;
 	private bool isHelperStarted;
 	private bool isSetToVanish;
-
-	/*void awake()
-	{
-		// on awake, find the arrowHelper and the mouseTracker
-		arrowHelper = GameObject.Find ("ArrowPlaneRoot");
-		mouseTracker = GameObject.Find ("mouseTrackerSphere");
-	}*/
-
 	private Renderer helperRend;
 
 	// Use this for initialization
 	void Start () {
-
+		Debug.Log ("Ball_White start");
 		base.Start();
 
 		// on awake, find the arrowHelper and the mouseTracker
