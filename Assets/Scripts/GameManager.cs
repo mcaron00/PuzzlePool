@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour {
 		// Destroy ball in the pocket
 		balls.Remove (ballInPocket.GetComponent<Ball_Generic>());
 		Object.Destroy (ballInPocket);
+
+		// Report a stopped ball
+		reportStopped();
 	}
 
 	void Awake () {

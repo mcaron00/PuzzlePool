@@ -107,8 +107,8 @@ public class Ball_White : Ball_Generic {
 
 	void OnMouseUp ()
 	{
-		// Only give an impulse if helper not set to vanish
-		if (isSetToVanish == false)
+		// Only give an impulse if helper not set to vanish, AND if the player is actually shooting
+		if (isSetToVanish == false && isAiming == true)
 		{
 			//Debug.Log ("Shot sent");
 
