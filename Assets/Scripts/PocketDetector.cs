@@ -13,7 +13,7 @@ public class PocketDetector : MonoBehaviour {
 		//Debug.Log ("Ball is " + otherColor);
 		//Debug.Log ("Pocket is " + pocketColor);
 
-		if(otherColor == pocketColor) GameManager.instance.addGoodBall();
+		if(otherColor == pocketColor) GameManager.instance.addGoodBall(collider.gameObject);
 		else GameManager.instance.reportBadBall();
 	}
 

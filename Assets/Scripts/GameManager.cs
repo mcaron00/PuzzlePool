@@ -10,15 +10,22 @@ public class GameManager : MonoBehaviour {
 	private List<PocketDetector> pockets;
 	private int goodBalls;
 	private int shotCount;
-	private int maxShotCount = 4;
+	private int maxShotCount = 8;
 	private bool isShotOngoing;
 	private UiManager uiManager;
 	private bool isGameOver;
+	private string[] levels = new string[2];
+	private int currentLevelIndex;
 
-	public void addGoodBall()
+
+	public void addGoodBall(GameObject ballInPocket)
 	{
 		goodBalls++;
 		checkVictory();
+
+		// Destroy ball in the pocket
+		balls.Remove (ballInPocket.GetComponent<Ball_Generic>());
+		Object.Destroy (ballInPocket);
 	}
 
 	void Awake () {
@@ -30,15 +37,14 @@ public class GameManager : MonoBehaviour {
 		//Debug.Log ("Game Manager Ready");
 		balls = new List<Ball_Generic>();
 
-
 		pockets = new List<PocketDetector>();
-
-
 
 		// Identify Ui Manager
 		uiManager = GetComponent<UiManager>();
 
-
+		// Build array of level names
+		levels[0] = "Pul_TestLevel01_prefabs";
+		levels[1] = "Pul_TestLevel02";
 	}
 
 	public bool checkShotOngoing(){
@@ -70,6 +76,13 @@ public class GameManager : MonoBehaviour {
 
 		// Display game win popup
 		uiManager.displayGameWin();
+
+		// Disable "next" button in case the last level has been completed
+		if(currentLevelIndex >= levels.Length - 1)
+		{
+			Debug.Log ("last level reached");
+			uiManager.disableNext();
+		}
 	}
 
 	void doGameOver(string reason)
@@ -111,7 +124,7 @@ public class GameManager : MonoBehaviour {
 		//Debug.Log ("Reported pocekts: " + pockets.Count);
 	}
 
-	private void loadLevel(string levelToLoad)
+	private void loadCurrentLevel()
 	{
 		// Clear lists
 		balls.Clear ();
@@ -134,15 +147,22 @@ public class GameManager : MonoBehaviour {
 		uiManager.resetUi ();
 
 		// Load first level
-		Application.LoadLevelAdditive(levelToLoad);
+		Application.LoadLevelAdditive(levels[currentLevelIndex]);
+	}
+
+	public void nextButtonPressed()
+	{
+		// Increment level index
+		currentLevelIndex++;
+
+		// ... And load!
+		loadCurrentLevel ();
 	}
 
 	public void replayButtonPressed()
 	{
-		//Debug.Log ("Replay button pressed");
-
-		//loadLevel ("Puzzle_Pool_TestLevel01");
-		loadLevel ("Pul_TestLevel01_prefabs");
+		// Load current level again
+		loadCurrentLevel ();
 	}
 
 	public void reportBadBall()
@@ -188,19 +208,19 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// Load level
-		loadLevel ("Pul_TestLevel01_prefabs");
 
 		// Tweak gravity settings
 		Physics.gravity = new Vector3(0, -customGravity, 0);
 
-
+		// Init level index and load 1st one
+		currentLevelIndex = 0;
+		loadCurrentLevel ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
 
-	}
+	}*/
 
 	void updateHud()
 	{

@@ -8,6 +8,17 @@ public class UiManager : MonoBehaviour {
 	private GameOverPopup gameOverPopup;
 	private GameWinPopup gameWinPopup;
 
+	public void disableNext()
+	{
+		GameObject nextButton = GameObject.Find("GameWinNextButton");
+		Button buttonComponent = nextButton.GetComponent<Button>();
+		buttonComponent.interactable = false;
+
+		// Tell player the last level has been won
+		Text textdfield = GameObject.Find("GameWinMessage").GetComponent<Text>();
+		textdfield.text = "All levels completed";
+	}
+
 	public void displayGameOver(string reason)
 	{
 		// Display reason for game over
@@ -31,6 +42,10 @@ public class UiManager : MonoBehaviour {
 	{
 		// Move game win popup to middle of screen
 		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(0,0);
+
+		// Erase game win message altogether
+		Text textdfield = GameObject.Find("GameWinMessage").GetComponent<Text>();
+		textdfield.text = "";
 	}
 
 	public void resetUi()
@@ -47,15 +62,17 @@ public class UiManager : MonoBehaviour {
 		// Move game over pop up and game win popup out of the way
 		gameOverPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
 		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+
+
 	}
 
 	// Use this for initialization
-	void Start () {
+	/*void Start () {
 		// Find game over popup and game win popup
 
 
 		//resetUi();
-	}
+	}*/
 	
 	// Update is called once per frame
 	/*void Update () {
