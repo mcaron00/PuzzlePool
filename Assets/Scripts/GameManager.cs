@@ -5,6 +5,10 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
+
+	public string[] levels = new string[2];
+	public int lastLevelWon;
+
 	private float customGravity = 12.0f;
 	private List<Ball_Generic> balls;
 	private List<PocketDetector> pockets;
@@ -14,8 +18,7 @@ public class GameManager : MonoBehaviour {
 	private bool isShotOngoing;
 	private UiManager uiManager;
 	private bool isGameOver;
-	private string[] levels = new string[2];
-	private int currentLevelIndex;
+	private int currentLevel;
 
 
 	public void addGoodBall(GameObject ballInPocket)
@@ -48,6 +51,9 @@ public class GameManager : MonoBehaviour {
 		// Build array of level names
 		levels[0] = "Pul_TestLevel01_prefabs";
 		levels[1] = "Pul_TestLevel02";
+
+		// Set all levels as "not won"
+		lastLevelWon = 0;
 	}
 
 	public bool checkShotOngoing(){
@@ -71,6 +77,9 @@ public class GameManager : MonoBehaviour {
 
 	void doGameWon()
 	{
+		// Record that the level was conquered
+		lastLevelWon = currentLevel;
+
 		// Ignore if game already over
 		if(isGameOver == true) return;
 
@@ -81,9 +90,9 @@ public class GameManager : MonoBehaviour {
 		uiManager.displayGameWin();
 
 		// Disable "next" button in case the last level has been completed
-		if(currentLevelIndex >= levels.Length - 1)
+		if(currentLevel >= levels.Length)
 		{
-			Debug.Log ("last level reached");
+			//Debug.Log ("last level reached");
 			uiManager.disableNext();
 		}
 	}
@@ -113,6 +122,37 @@ public class GameManager : MonoBehaviour {
 		if(shotCount >= maxShotCount)doGameOver("shots");
 	}
 
+	public void launchLevel(int levelNumber)
+	{
+		//Debug.Log ("Launch Level #" + levelNumber);
+
+		// Record level
+		currentLevel = levelNumber;
+
+		// Clear lists
+		balls.Clear ();
+		pockets.Clear ();
+
+		// Reset phase trackers
+		isShotOngoing = false;
+		goodBalls = 0;
+		shotCount = 0;
+		isGameOver = false;
+
+		// Update HUD
+		updateHud();
+		
+		// Destroy previously loaded level
+		GameObject sceneMasterNode = GameObject.Find ("SceneMaster");
+		Object.Destroy (sceneMasterNode);
+		
+		// Set UI for game
+		uiManager.startGame ();
+		
+		// Load first level
+		Application.LoadLevelAdditive(levels[currentLevel - 1]);
+	}
+
 	public void listBall (Ball_Generic reportedBall)
 	{
 		balls.Add(reportedBall);
@@ -127,45 +167,26 @@ public class GameManager : MonoBehaviour {
 		//Debug.Log ("Reported pocekts: " + pockets.Count);
 	}
 
-	private void loadCurrentLevel()
+	public void mainMenuButtonPressed()
 	{
-		// Clear lists
-		balls.Clear ();
-		pockets.Clear ();
+		uiManager.showMainMenu ();
 
-		// Reset phase trackers
-		isShotOngoing = false;
-		goodBalls = 0;
-		shotCount = 0;
-		isGameOver = false;
-		
-		// Update HUD
-		updateHud();
-
-		// Destroy previously loaded level
-		GameObject sceneMasterNode = GameObject.Find ("SceneMaster");
-		Object.Destroy (sceneMasterNode);
-
-		// Reset UI
-		uiManager.resetUi ();
-
-		// Load first level
-		Application.LoadLevelAdditive(levels[currentLevelIndex]);
 	}
-
+	
 	public void nextButtonPressed()
 	{
 		// Increment level index
-		currentLevelIndex++;
+		currentLevel++;
 
 		// ... And load!
-		loadCurrentLevel ();
+		launchLevel(currentLevel);
 	}
 
 	public void replayButtonPressed()
 	{
 		// Load current level again
-		loadCurrentLevel ();
+		//loadCurrentLevel ();
+		launchLevel(currentLevel);
 	}
 
 	public void reportBadBall()
@@ -215,9 +236,7 @@ public class GameManager : MonoBehaviour {
 		// Tweak gravity settings
 		Physics.gravity = new Vector3(0, -customGravity, 0);
 
-		// Init level index and load 1st one
-		currentLevelIndex = 0;
-		loadCurrentLevel ();
+
 	}
 	
 	// Update is called once per frame

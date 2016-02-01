@@ -76,8 +76,6 @@ public class Ball_White : Ball_Generic {
 
 		}
 
-		//base.Update ();
-
 	}
 
 	// Detect click

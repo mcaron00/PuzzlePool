@@ -51,8 +51,9 @@
      <Compile Include="Assets\Scripts\Ball_White.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameOverPopup.cs" />
-     <Compile Include="Assets\Scripts\GameUiManager.cs" />
      <Compile Include="Assets\Scripts\GameWinPopup.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\MainMenuLevelButton.cs" />
      <Compile Include="Assets\Scripts\PocketDetector.cs" />
      <Compile Include="Assets\Scripts\ShotCounter.cs" />
      <Compile Include="Assets\Scripts\UiManager.cs" />

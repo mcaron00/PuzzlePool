@@ -3,8 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour {
-	
+
 	private ShotCounter shotCounter;
+	private MainMenu mainMenu;
 	private GameOverPopup gameOverPopup;
 	private GameWinPopup gameWinPopup;
 
@@ -48,22 +49,9 @@ public class UiManager : MonoBehaviour {
 		textdfield.text = "";
 	}
 
-	public void resetUi()
+	public void hideMainMenu()
 	{
-		//Debug.Log ("Resert UI");
-
-		// Init ui elements if not done yet
-		if(gameOverPopup == null  || gameWinPopup == null)
-		{
-			gameOverPopup = GameObject.Find("GameOverPopup").GetComponent<GameOverPopup>();
-			gameWinPopup = GameObject.Find("GameWinPopup").GetComponent<GameWinPopup>();
-		}
-
-		// Move game over pop up and game win popup out of the way
-		gameOverPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
-		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
-
-
+		mainMenu.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
 	}
 
 	// Use this for initialization
@@ -73,7 +61,39 @@ public class UiManager : MonoBehaviour {
 
 		//resetUi();
 	}*/
-	
+
+	public void showMainMenu()
+	{
+		// Move game over pop up and game win popup out of the way
+		gameOverPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+		mainMenu.GetComponent<RectTransform>().localPosition = new Vector2(0,0);
+
+		mainMenu.updateLevelButtons();
+
+
+	}
+
+	public void startGame()
+	{
+		//Debug.Log ("Resert UI");
+
+		// Init ui elements if not done yet
+		if(gameOverPopup == null  || gameWinPopup == null || mainMenu == null)
+		{
+			gameOverPopup = GameObject.Find("GameOverPopup").GetComponent<GameOverPopup>();
+			gameWinPopup = GameObject.Find("GameWinPopup").GetComponent<GameWinPopup>();
+			mainMenu = GameObject.Find("MainMenu").GetComponent<MainMenu>();
+			//mainMenu = GameObject.Find("MainMenu");
+		}
+
+		// Move game over pop up and game win popup out of the way
+		gameOverPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+		mainMenu.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+
+	}
+
 	// Update is called once per frame
 	/*void Update () {
 	
