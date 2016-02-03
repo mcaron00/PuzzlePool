@@ -18,10 +18,10 @@ public class PocketDetector : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	/*void Start () {
 		// Report self to game manager
-		GameManager.instance.listPocket(this);
-	}
+		//GameManager.instance.listPocket(this);
+	}*/
 	
 	// Update is called once per frame
 	/*void Update () {

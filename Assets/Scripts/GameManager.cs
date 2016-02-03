@@ -6,19 +6,21 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 
-	public string[] levels = new string[2];
+	public string[] levels;
+	public int[] shotsPerLevel;
 	public int lastLevelWon;
 
 	private float customGravity = 12.0f;
 	private List<Ball_Generic> balls;
-	private List<PocketDetector> pockets;
+	//private List<PocketDetector> pockets;
 	private int goodBalls;
 	private int shotCount;
-	private int maxShotCount = 8;
+	private int maxShotCount;
 	private bool isShotOngoing;
 	private UiManager uiManager;
 	private bool isGameOver;
 	private int currentLevel;
+	private int ballsToSink;
 
 
 	public void addGoodBall(GameObject ballInPocket)
@@ -40,17 +42,26 @@ public class GameManager : MonoBehaviour {
 		else if (instance != this)
 			Destroy(gameObject);
 
+		// Init levels array and fill it
+		levels = new string[3];
+		levels[0] = "Pzp_PrefabTest001";
+		levels[1] = "Pzp_TestLevel01";
+		levels[2] = "Pzp_TestLevel02";
+
+		// Determine shots per level
+		shotsPerLevel = new int[3];
+		shotsPerLevel[0] = 7;
+		shotsPerLevel[1] = 5;
+		shotsPerLevel[2] = 5;
+
 		//Debug.Log ("Game Manager Ready");
 		balls = new List<Ball_Generic>();
 
-		pockets = new List<PocketDetector>();
+		//pockets = new List<PocketDetector>();
 
 		// Identify Ui Manager
 		uiManager = GetComponent<UiManager>();
 
-		// Build array of level names
-		levels[0] = "Pul_TestLevel01_prefabs";
-		levels[1] = "Pul_TestLevel02";
 
 		// Set all levels as "not won"
 		lastLevelWon = 0;
@@ -66,10 +77,11 @@ public class GameManager : MonoBehaviour {
 
 	void checkVictory()
 	{
-		//Debug.Log ("good balls: " + goodBalls);
-		//Debug.Log ("pockets: " + pockets.Count);
+		Debug.Log ("good balls: " + goodBalls);
+		Debug.Log ("Balls to sink: " + ballsToSink);
 
-		if(goodBalls >= pockets.Count)
+		// Check that only one ball is left (assuming it's the white one)
+		if(goodBalls >= ballsToSink - 1)
 		{
 			doGameWon();
 		}
@@ -131,13 +143,17 @@ public class GameManager : MonoBehaviour {
 
 		// Clear lists
 		balls.Clear ();
-		pockets.Clear ();
+		//pockets.Clear ();
 
 		// Reset phase trackers
 		isShotOngoing = false;
 		goodBalls = 0;
 		shotCount = 0;
 		isGameOver = false;
+		ballsToSink = 0;
+
+		// Update max shot count for this level
+		maxShotCount = shotsPerLevel[levelNumber - 1];
 
 		// Update HUD
 		updateHud();
@@ -156,16 +172,17 @@ public class GameManager : MonoBehaviour {
 	public void listBall (Ball_Generic reportedBall)
 	{
 		balls.Add(reportedBall);
+		ballsToSink++;
 
 		//Debug.Log ("Reported balls: " + balls.Count);
 	}
 
-	public void listPocket (PocketDetector reportedPocket)
+	/*public void listPocket (PocketDetector reportedPocket)
 	{
-		pockets.Add(reportedPocket);
+		//pockets.Add(reportedPocket);
 		
 		//Debug.Log ("Reported pocekts: " + pockets.Count);
-	}
+	}*/
 
 	public void mainMenuButtonPressed()
 	{
