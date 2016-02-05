@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 
 	private float customGravity = 12.0f;
 	private List<Ball_Generic> balls;
-	//private List<PocketDetector> pockets;
+	//private List<PocketDetector> pocketDetectors;
 	private int goodBalls;
 	private int shotCount;
 	private int maxShotCount;
@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour {
 
 	public void addGoodBall(GameObject ballInPocket)
 	{
+		Debug.Log ("Good ball");
+
 		goodBalls++;
 		checkVictory();
 
@@ -44,18 +46,19 @@ public class GameManager : MonoBehaviour {
 
 		// Init levels array and fill it
 		levels = new string[3];
-		levels[0] = "Pzp_PrefabTest001";
-		levels[1] = "Pzp_TestLevel01";
+		levels[0] = "Pzp_Level1_2";
+		levels[1] = "Pzp_Level2_1";
 		levels[2] = "Pzp_TestLevel02";
 
 		// Determine shots per level
 		shotsPerLevel = new int[3];
 		shotsPerLevel[0] = 7;
-		shotsPerLevel[1] = 5;
+		shotsPerLevel[1] = 10;
 		shotsPerLevel[2] = 5;
 
 		//Debug.Log ("Game Manager Ready");
 		balls = new List<Ball_Generic>();
+		//pocketDetectors = new List<PocketDetector>();
 
 		//pockets = new List<PocketDetector>();
 
@@ -132,11 +135,14 @@ public class GameManager : MonoBehaviour {
 
 		// Check if game over
 		if(shotCount >= maxShotCount)doGameOver("shots");
+
+		// Count pocket detectors
+		Debug.Log ("Number of pockets: " + FindObjectsOfType (typeof(PocketDetector)).Length);
 	}
 
 	public void launchLevel(int levelNumber)
 	{
-		//Debug.Log ("Launch Level #" + levelNumber);
+		Debug.Log ("Launch Level #" + levelNumber);
 
 		// Record level
 		currentLevel = levelNumber;
@@ -157,6 +163,15 @@ public class GameManager : MonoBehaviour {
 
 		// Update HUD
 		updateHud();
+
+		// Destroy pocket detectors
+		/*foreach(PocketDetector pocket in pocketDetectors)
+		{
+			Object.Destroy (pocket);
+		}
+		pocketDetectors.Clear ();*/
+
+		//Debug.Log ("Number of pockets: " + FindObjectsOfType (typeof(PocketDetector)).Length);
 		
 		// Destroy previously loaded level
 		GameObject sceneMasterNode = GameObject.Find ("SceneMaster");
@@ -177,11 +192,9 @@ public class GameManager : MonoBehaviour {
 		//Debug.Log ("Reported balls: " + balls.Count);
 	}
 
-	/*public void listPocket (PocketDetector reportedPocket)
+	/*public void listPocket(PocketDetector reportedPocket)
 	{
-		//pockets.Add(reportedPocket);
-		
-		//Debug.Log ("Reported pocekts: " + pockets.Count);
+		pocketDetectors.Add (reportedPocket);
 	}*/
 
 	public void mainMenuButtonPressed()
