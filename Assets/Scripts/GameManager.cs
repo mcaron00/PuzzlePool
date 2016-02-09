@@ -45,16 +45,18 @@ public class GameManager : MonoBehaviour {
 			Destroy(gameObject);
 
 		// Init levels array and fill it
-		levels = new string[3];
+		levels = new string[4];
 		levels[0] = "Pzp_Level1_2";
-		levels[1] = "Pzp_Level2_1";
-		levels[2] = "Pzp_TestLevel02";
+		levels[1] = "Pzp_Level2_2";
+		levels[2] = "Pzp_Level3_1";
+		levels[3] = "Pzp_Level4_1";
 
 		// Determine shots per level
-		shotsPerLevel = new int[3];
+		shotsPerLevel = new int[4];
 		shotsPerLevel[0] = 7;
-		shotsPerLevel[1] = 10;
-		shotsPerLevel[2] = 5;
+		shotsPerLevel[1] = 8;
+		shotsPerLevel[2] = 9;
+		shotsPerLevel[3] = 5;
 
 		//Debug.Log ("Game Manager Ready");
 		balls = new List<Ball_Generic>();
