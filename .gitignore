@@ -1,7 +1,5 @@
 # Lines with a hashtag are comments
 
-# Ignore builds
-Builds\
-
-# Ignore ShaderCache
-Library\ShaderCache\
+# Ignore builds and shader cache
+ShaderCache\
+temp\
