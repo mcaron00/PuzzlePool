@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 
 		// Init levels array and fill it
 		levels = new string[4];
-		levels[0] = "Pzp_Level1_2";
+		levels[0] = "Pzp_Level1_3";
 		levels[1] = "Pzp_Level2_2";
 		levels[2] = "Pzp_Level3_1";
 		levels[3] = "Pzp_Level4_1";
@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour {
 
 		// Identify Ui Manager
 		uiManager = GetComponent<UiManager>();
-
 
 		// Set all levels as "not won"
 		lastLevelWon = 0;
@@ -94,6 +93,9 @@ public class GameManager : MonoBehaviour {
 
 	void doGameWon()
 	{
+		// Hide the ongoing shot indicator
+		uiManager.setOngoing(false);
+
 		// Record that the level was conquered
 		lastLevelWon = currentLevel;
 
@@ -116,6 +118,9 @@ public class GameManager : MonoBehaviour {
 
 	void doGameOver(string reason)
 	{
+		// Hide the ongoing shot indicator
+		uiManager.setOngoing(false);
+
 		// Ignore if game already over
 		if(isGameOver == true) return;
 
@@ -135,11 +140,14 @@ public class GameManager : MonoBehaviour {
 			gameObj.stopVelocityControl();
 		}
 
+		// Turn the ongoing indicator off
+		uiManager.setOngoing(false);
+
 		// Check if game over
 		if(shotCount >= maxShotCount)doGameOver("shots");
 
 		// Count pocket detectors
-		Debug.Log ("Number of pockets: " + FindObjectsOfType (typeof(PocketDetector)).Length);
+		//Debug.Log ("Number of pockets: " + FindObjectsOfType (typeof(PocketDetector)).Length);
 	}
 
 	public void launchLevel(int levelNumber)
@@ -237,6 +245,9 @@ public class GameManager : MonoBehaviour {
 		// Update shot count
 		shotCount++;
 		updateHud();
+
+		// Turn the ongoing indicator on
+		uiManager.setOngoing(true);
 
 		isShotOngoing = true;
 	}

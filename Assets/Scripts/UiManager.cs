@@ -8,6 +8,7 @@ public class UiManager : MonoBehaviour {
 	private MainMenu mainMenu;
 	private GameOverPopup gameOverPopup;
 	private GameWinPopup gameWinPopup;
+	private OngoingIndicator ongoingIndicator;
 
 	public void disableNext()
 	{
@@ -62,6 +63,13 @@ public class UiManager : MonoBehaviour {
 		//resetUi();
 	}*/
 
+	public void setOngoing(bool state)
+	{
+		Debug.Log ("set ongoing call received as "+ state);
+
+		ongoingIndicator.gameObject.SetActive(state);
+	}
+
 	public void showMainMenu()
 	{
 		// Move game over pop up and game win popup out of the way
@@ -74,6 +82,16 @@ public class UiManager : MonoBehaviour {
 
 	}
 
+	void Start()
+	{
+		ongoingIndicator = GameObject.Find("OngoingIndicator").GetComponent<OngoingIndicator>();
+
+		// Hide the ongoing shot indicator
+		Debug.Log ("about to hide ongoing indicator");
+		setOngoing(false);
+	}
+
+
 	public void startGame()
 	{
 		//Debug.Log ("Resert UI");
@@ -85,12 +103,15 @@ public class UiManager : MonoBehaviour {
 			gameWinPopup = GameObject.Find("GameWinPopup").GetComponent<GameWinPopup>();
 			mainMenu = GameObject.Find("MainMenu").GetComponent<MainMenu>();
 			//mainMenu = GameObject.Find("MainMenu");
+
 		}
 
 		// Move game over pop up and game win popup out of the way
 		gameOverPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
 		gameWinPopup.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
 		mainMenu.GetComponent<RectTransform>().localPosition = new Vector2(1000,0);
+
+
 
 	}
 
