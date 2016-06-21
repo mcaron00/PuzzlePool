@@ -62,15 +62,18 @@ public class Ball_White : Ball_Generic {
 
 	public void receiveMouseUp()
 	{
-		Debug.Log ("Mouse up time");
+		//Debug.Log ("Mouse up time");
 
 		// Only give an impulse if helper not set to vanish, AND if the player is actually shooting
 		if (isSetToVanish == false)
 		{
-			Debug.Log ("Shot sent");
+			//Debug.Log ("Shot sent");
+
 
 			// Prepare impulse
 			float force = arrowHelper.transform.localScale.z * forceMultiplier;
+
+			audioMan.playCue(force / 2);
 
 			// Shoot!
 			rb.AddForce(topDownDirection.normalized * force,ForceMode.Impulse);

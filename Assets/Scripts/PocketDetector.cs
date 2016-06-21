@@ -5,9 +5,18 @@ public class PocketDetector : MonoBehaviour {
 
 	public string pocketColor;
 
+	private audioFXManager audioMan;
+
+	void Awake()
+	{
+		audioMan = GameManager.instance.GetComponent<audioFXManager> ();
+	}
+
 	// Report to GameManager on collision
 	void OnTriggerEnter(Collider collider)
 	{
+		audioMan.playPocket ();
+
 		//Debug.Log ("Pocket entered");
 		string otherColor = collider.gameObject.GetComponent<Ball_Generic>().ballColor;
 		//Debug.Log ("Ball is " + otherColor);

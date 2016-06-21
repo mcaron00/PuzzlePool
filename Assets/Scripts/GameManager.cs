@@ -234,6 +234,10 @@ public class GameManager : MonoBehaviour {
 		balls.Add(reportedBall);
 		ballsToSink++;
 
+		// Use this number to differentiate balls
+		// This is used for audio management (making sure 2 balls never simultaneously trigger the same audio)
+		reportedBall.audioPriority = ballsToSink; 
+
 		//Debug.Log ("Reported balls: " + balls.Count);
 	}
 
