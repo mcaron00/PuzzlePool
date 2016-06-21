@@ -19,7 +19,7 @@ public class pocketEndCollision : MonoBehaviour {
 		// Unless it's the white ball, which has a chance of coming out
 		if(col.gameObject.GetComponent<Ball_White>() == null){
 			col.gameObject.layer = 8;
-			Debug.Log ("Non-White Ball");
+			//Debug.Log ("Non-White Ball");
 		}
 
 	}

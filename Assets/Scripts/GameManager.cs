@@ -17,15 +17,19 @@ public class GameManager : MonoBehaviour {
 	private int shotCount;
 	private int maxShotCount;
 	private bool isShotOngoing;
+	private bool isShotAwaiting;
 	private UiManager uiManager;
 	private bool isGameOver;
 	private int currentLevel;
 	private int ballsToSink;
+	private bool wasMouseDown;
+	private Vector3 initialMousePosition;
+	private Ball_White whiteBall;
 
 
 	public void addGoodBall(GameObject ballInPocket)
 	{
-		Debug.Log ("Good ball");
+		//Debug.Log ("Good ball");
 
 		goodBalls++;
 		checkVictory();
@@ -62,7 +66,8 @@ public class GameManager : MonoBehaviour {
 		balls = new List<Ball_Generic>();
 		//pocketDetectors = new List<PocketDetector>();
 
-		//pockets = new List<PocketDetector>();
+		// Don't accept mouse input for shots yet
+		isShotAwaiting = false;
 
 		// Identify Ui Manager
 		uiManager = GetComponent<UiManager>();
@@ -81,8 +86,8 @@ public class GameManager : MonoBehaviour {
 
 	void checkVictory()
 	{
-		Debug.Log ("good balls: " + goodBalls);
-		Debug.Log ("Balls to sink: " + ballsToSink);
+		//Debug.Log ("good balls: " + goodBalls);
+		//Debug.Log ("Balls to sink: " + ballsToSink);
 
 		// Check that only one ball is left (assuming it's the white one)
 		if(goodBalls >= ballsToSink - 1)
@@ -93,6 +98,8 @@ public class GameManager : MonoBehaviour {
 
 	void doGameWon()
 	{
+		isShotAwaiting = false;
+
 		// Hide the ongoing shot indicator
 		uiManager.setOngoing(false);
 
@@ -118,6 +125,8 @@ public class GameManager : MonoBehaviour {
 
 	void doGameOver(string reason)
 	{
+		isShotAwaiting = false;
+
 		// Hide the ongoing shot indicator
 		uiManager.setOngoing(false);
 
@@ -129,6 +138,36 @@ public class GameManager : MonoBehaviour {
 
 		// Display game over popup
 		uiManager.displayGameOver(reason);
+	}
+
+	void FixedUpdate () 
+	{
+		// Skip if no need to process shot input
+		if(!isShotAwaiting)
+		{
+			return;
+		}
+
+		//bool isMouseDown = Input.GetMouseButtonDown(0);
+		bool isMouseDown = Input.GetMouseButton(0);
+		Vector3 deltaMousePos;
+		//bool isMouseUp = Input.GetMouseButtonUp(0);
+
+		if (isMouseDown && wasMouseDown != true) {
+			//Debug.Log ("1st Frame of Mouse Down");
+			// Record initial contact point
+			initialMousePosition = Input.mousePosition;
+			//Debug.Log ("Mouse Position: " + initialMousePosition);
+		} else if (isMouseDown) {
+			
+			// Transmit delta of mouse position to white ball
+			whiteBall.receiveMouseInput(initialMousePosition - Input.mousePosition);
+		} else if (wasMouseDown && !isMouseDown) {
+			whiteBall.receiveMouseUp ();
+		}
+
+		// Record state of input
+		wasMouseDown = isMouseDown;
 	}
 
 	void inBetweenShots()
@@ -146,13 +185,13 @@ public class GameManager : MonoBehaviour {
 		// Check if game over
 		if(shotCount >= maxShotCount)doGameOver("shots");
 
-		// Count pocket detectors
-		//Debug.Log ("Number of pockets: " + FindObjectsOfType (typeof(PocketDetector)).Length);
+		// Accept shot input
+		isShotAwaiting = true;
 	}
 
 	public void launchLevel(int levelNumber)
 	{
-		Debug.Log ("Launch Level #" + levelNumber);
+		//Debug.Log ("Launch Level #" + levelNumber);
 
 		// Record level
 		currentLevel = levelNumber;
@@ -174,13 +213,6 @@ public class GameManager : MonoBehaviour {
 		// Update HUD
 		updateHud();
 
-		// Destroy pocket detectors
-		/*foreach(PocketDetector pocket in pocketDetectors)
-		{
-			Object.Destroy (pocket);
-		}
-		pocketDetectors.Clear ();*/
-
 		//Debug.Log ("Number of pockets: " + FindObjectsOfType (typeof(PocketDetector)).Length);
 		
 		// Destroy previously loaded level
@@ -192,6 +224,9 @@ public class GameManager : MonoBehaviour {
 		
 		// Load first level
 		Application.LoadLevelAdditive(levels[currentLevel - 1]);
+
+		// Accept input
+		isShotAwaiting = true;
 	}
 
 	public void listBall (Ball_Generic reportedBall)
@@ -201,11 +236,6 @@ public class GameManager : MonoBehaviour {
 
 		//Debug.Log ("Reported balls: " + balls.Count);
 	}
-
-	/*public void listPocket(PocketDetector reportedPocket)
-	{
-		pocketDetectors.Add (reportedPocket);
-	}*/
 
 	public void mainMenuButtonPressed()
 	{
@@ -220,6 +250,11 @@ public class GameManager : MonoBehaviour {
 
 		// ... And load!
 		launchLevel(currentLevel);
+	}
+
+	public void recordWhiteBall(Ball_White reportedBall)
+	{
+		whiteBall = reportedBall;
 	}
 
 	public void replayButtonPressed()
@@ -250,6 +285,7 @@ public class GameManager : MonoBehaviour {
 		uiManager.setOngoing(true);
 
 		isShotOngoing = true;
+		isShotAwaiting = false;
 	}
 
 	public void reportStopped()
