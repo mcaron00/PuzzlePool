@@ -65,8 +65,6 @@ public class UiManager : MonoBehaviour {
 
 	public void setOngoing(bool state)
 	{
-		Debug.Log ("set ongoing call received as "+ state);
-
 		ongoingIndicator.gameObject.SetActive(state);
 	}
 
@@ -87,7 +85,6 @@ public class UiManager : MonoBehaviour {
 		ongoingIndicator = GameObject.Find("OngoingIndicator").GetComponent<OngoingIndicator>();
 
 		// Hide the ongoing shot indicator
-		Debug.Log ("about to hide ongoing indicator");
 		setOngoing(false);
 	}
 
