@@ -29,8 +29,7 @@ public class GameManager : MonoBehaviour {
 
 	public void addGoodBall(GameObject ballInPocket)
 	{
-		//Debug.Log ("Good ball");
-
+		
 		goodBalls++;
 		checkVictory();
 
@@ -38,8 +37,6 @@ public class GameManager : MonoBehaviour {
 		balls.Remove (ballInPocket.GetComponent<Ball_Generic>());
 		Object.Destroy (ballInPocket);
 
-		// Report a stopped ball
-		reportStopped();
 	}
 
 	void Awake () {
@@ -64,7 +61,6 @@ public class GameManager : MonoBehaviour {
 
 		//Debug.Log ("Game Manager Ready");
 		balls = new List<Ball_Generic>();
-		//pocketDetectors = new List<PocketDetector>();
 
 		// Don't accept mouse input for shots yet
 		isShotAwaiting = false;
@@ -86,9 +82,6 @@ public class GameManager : MonoBehaviour {
 
 	void checkVictory()
 	{
-		//Debug.Log ("good balls: " + goodBalls);
-		//Debug.Log ("Balls to sink: " + ballsToSink);
-
 		// Check that only one ball is left (assuming it's the white one)
 		if(goodBalls >= ballsToSink - 1)
 		{
@@ -110,7 +103,6 @@ public class GameManager : MonoBehaviour {
 		if(isGameOver == true) return;
 
 		isGameOver = true;
-		//Debug.Log ("************* VICTORY!!!");
 
 		// Display game win popup
 		uiManager.displayGameWin();
@@ -142,26 +134,54 @@ public class GameManager : MonoBehaviour {
 
 	void FixedUpdate () 
 	{
-		// Skip if no need to process shot input
+		// *************************************************************
+		// if shotCount is ongoing, check if balls have stopped
+		// *************************************************************
+		if(isShotOngoing)
+		{
+			// Check for all sleeping balls
+			bool allStopped = true;
+
+			foreach (Ball_Generic item in balls) {
+				//Debug.Log ("Ball " + item.ballColor + " sleep: " + item.checkSleeping());
+
+				if (item.checkSleeping() == false)
+					allStopped = false;
+			}
+
+			if (allStopped == true) {
+				//Debug.Log ("***** ALL STOPPED *****");
+
+				isShotOngoing = false;
+				inBetweenShots ();
+			}
+
+			return;
+		}
+
+		// *************************************************************
+		// if not yet ready to accept inputs, stop now
+		// *************************************************************
 		if(!isShotAwaiting)
 		{
 			return;
 		}
 
-		//bool isMouseDown = Input.GetMouseButtonDown(0);
+		// *************************************************************
+		// Accept player inputs
+		// *************************************************************
 		bool isMouseDown = Input.GetMouseButton(0);
 		Vector3 deltaMousePos;
 		//bool isMouseUp = Input.GetMouseButtonUp(0);
 
 		if (isMouseDown && wasMouseDown != true) {
-			//Debug.Log ("1st Frame of Mouse Down");
 			// Record initial contact point
 			initialMousePosition = Input.mousePosition;
-			//Debug.Log ("Mouse Position: " + initialMousePosition);
+
 		} else if (isMouseDown) {
-			
 			// Transmit delta of mouse position to white ball
 			whiteBall.receiveMouseInput(initialMousePosition - Input.mousePosition);
+
 		} else if (wasMouseDown && !isMouseDown) {
 			whiteBall.receiveMouseUp ();
 		}
@@ -172,13 +192,6 @@ public class GameManager : MonoBehaviour {
 
 	void inBetweenShots()
 	{
-
-		// Stop controlling velocity
-		foreach (Ball_Generic gameObj in balls)
-		{
-			gameObj.stopVelocityControl();
-		}
-
 		// Turn the ongoing indicator off
 		uiManager.setOngoing(false);
 
@@ -191,8 +204,6 @@ public class GameManager : MonoBehaviour {
 
 	public void launchLevel(int levelNumber)
 	{
-		//Debug.Log ("Launch Level #" + levelNumber);
-
 		// Record level
 		currentLevel = levelNumber;
 
@@ -213,8 +224,6 @@ public class GameManager : MonoBehaviour {
 		// Update HUD
 		updateHud();
 
-		//Debug.Log ("Number of pockets: " + FindObjectsOfType (typeof(PocketDetector)).Length);
-		
 		// Destroy previously loaded level
 		GameObject sceneMasterNode = GameObject.Find ("SceneMaster");
 		Object.Destroy (sceneMasterNode);
@@ -290,27 +299,6 @@ public class GameManager : MonoBehaviour {
 
 		isShotOngoing = true;
 		isShotAwaiting = false;
-	}
-
-	public void reportStopped()
-	{
-		// We don't care if game is over
-		if(isGameOver == true) return;
-
-		// On ball just stopped. Check if all balls are stopped
-		int stoppedBalls = 0;
-		for(int i = 0; i < balls.Count; i++)
-		{
-			if (balls[i].checkRolling() == false)stoppedBalls++;
-		}
-
-		// If they are all stopped, start "in between shots" phase
-		if (stoppedBalls >= balls.Count)
-		{
-			//Debug.Log ("All balls stopped");
-			isShotOngoing = false;
-			inBetweenShots();
-		}
 	}
 
 	// Use this for initialization
