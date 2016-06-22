@@ -66,10 +66,12 @@ public class GameManager : MonoBehaviour {
 		isShotAwaiting = false;
 
 		// Identify Ui Manager
-		uiManager = GetComponent<UiManager>();
+		uiManager = GameObject.Find("UiManager").GetComponent<UiManager>();
+		uiManager.init ();
 
 		// Set all levels as "not won"
 		lastLevelWon = 0;
+
 	}
 
 	public bool checkShotOngoing(){
@@ -96,11 +98,11 @@ public class GameManager : MonoBehaviour {
 		// Hide the ongoing shot indicator
 		uiManager.setOngoing(false);
 
-		// Record that the level was conquered
-		lastLevelWon = currentLevel;
-
 		// Ignore if game already over
 		if(isGameOver == true) return;
+
+		// Record that the level was conquered
+		lastLevelWon = currentLevel;
 
 		isGameOver = true;
 
@@ -134,9 +136,16 @@ public class GameManager : MonoBehaviour {
 
 	void FixedUpdate () 
 	{
+		//Debug.Log ("Fixed Update");
+		//Debug.Log("isShotOngoing: " + isShotOngoing);
+		//Debug.Log("isShotAwaiting: " + isShotAwaiting);
 		// *************************************************************
 		// if shotCount is ongoing, check if balls have stopped
 		// *************************************************************
+
+		// Skip if game over
+		if(isGameOver)return;
+
 		if(isShotOngoing)
 		{
 			// Check for all sleeping balls
@@ -162,6 +171,7 @@ public class GameManager : MonoBehaviour {
 		// *************************************************************
 		// if not yet ready to accept inputs, stop now
 		// *************************************************************
+
 		if(!isShotAwaiting)
 		{
 			return;
@@ -192,6 +202,7 @@ public class GameManager : MonoBehaviour {
 
 	void inBetweenShots()
 	{
+		//Debug.Log ("in between shots");
 		// Turn the ongoing indicator off
 		uiManager.setOngoing(false);
 
@@ -204,6 +215,7 @@ public class GameManager : MonoBehaviour {
 
 	public void launchLevel(int levelNumber)
 	{
+		//Debug.Log("LaunchLevel");
 		// Record level
 		currentLevel = levelNumber;
 
@@ -249,14 +261,8 @@ public class GameManager : MonoBehaviour {
 
 		//Debug.Log ("Reported balls: " + balls.Count);
 	}
-
-	public void mainMenuButtonPressed()
-	{
-		uiManager.showMainMenu ();
-
-	}
 	
-	public void nextButtonPressed()
+	public void nextLevel()
 	{
 		// Increment level index
 		currentLevel++;
@@ -270,7 +276,7 @@ public class GameManager : MonoBehaviour {
 		whiteBall = reportedBall;
 	}
 
-	public void replayButtonPressed()
+	public void replay()
 	{
 		// Load current level again
 		//loadCurrentLevel ();
@@ -307,7 +313,13 @@ public class GameManager : MonoBehaviour {
 		// Tweak gravity settings
 		Physics.gravity = new Vector3(0, -customGravity, 0);
 
+		// Now show the main menu
+		uiManager.showMainMenu();
+	}
 
+	public void setInput (bool state)
+	{
+		isShotAwaiting = state;
 	}
 	
 	// Update is called once per frame

@@ -54,9 +54,13 @@
      <Compile Include="Assets\Scripts\GameWinPopup.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MainMenuLevelButton.cs" />
+     <Compile Include="Assets\Scripts\OngoingIndicator.cs" />
+     <Compile Include="Assets\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\PocketDetector.cs" />
      <Compile Include="Assets\Scripts\ShotCounter.cs" />
      <Compile Include="Assets\Scripts\UiManager.cs" />
+     <Compile Include="Assets\Scripts\audioFXManager.cs" />
+     <Compile Include="Assets\Scripts\pocketEndCollision.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

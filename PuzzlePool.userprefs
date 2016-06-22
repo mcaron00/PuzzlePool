@@ -1,12 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/audioFXManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UiManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/Ball_White.cs" Line="76" Column="20" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="240" Column="3" />
-      <File FileName="Assets/Scripts/Ball_Generic.cs" Line="12" Column="11" />
-      <File FileName="Assets/Scripts/audioFXManager.cs" Line="57" Column="3" />
-      <File FileName="Assets/Scripts/PocketDetector.cs" Line="18" Column="26" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="146" Column="23" />
+      <File FileName="Assets/Scripts/UiManager.cs" Line="119" Column="79" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
