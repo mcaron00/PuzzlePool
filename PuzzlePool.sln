@@ -1,7 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{F83BD9D2-08F8-CB87-891A-4AA5235890C0}") = "PuzzlePool", "Assembly-CSharp.csproj", "{49B758EA-1EA9-6E1E-C2B6-606D3AD70116}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzlePool", "Assembly-CSharp.csproj", "{49B758EA-1EA9-6E1E-C2B6-606D3AD70116}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
