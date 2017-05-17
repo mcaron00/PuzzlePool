@@ -20,6 +20,8 @@ ModelImporter:
     100024: pocketSideCollision
     100026: pocketMaster_001
     100028: pocketTopWall
+    100030: pocketEndWall
+    100032: pocketSideWall
     400000: cornerFloor
     400002: //RootNode
     400004: cornerWall
@@ -35,6 +37,8 @@ ModelImporter:
     400024: pocketSideCollision
     400026: pocketMaster_001
     400028: pocketTopWall
+    400030: pocketEndWall
+    400032: pocketSideWall
     2300000: cornerFloor
     2300002: cornerWall
     2300004: pocketFloor01
@@ -49,6 +53,8 @@ ModelImporter:
     2300022: pocketSideCollision
     2300024: pocketMaster_001
     2300026: pocketTopWall
+    2300028: pocketEndWall
+    2300030: pocketSideWall
     3300000: cornerFloor
     3300002: cornerWall
     3300004: pocketFloor01
@@ -63,6 +69,8 @@ ModelImporter:
     3300022: pocketSideCollision
     3300024: pocketMaster_001
     3300026: pocketTopWall
+    3300028: pocketEndWall
+    3300030: pocketSideWall
     4300000: cornerWall
     4300002: cornerFloor
     4300004: pocketHoleCollision
@@ -77,6 +85,8 @@ ModelImporter:
     4300022: pocketEndCollision
     4300024: pocketMaster_001
     4300026: pocketTopWall
+    4300028: pocketSideWall
+    4300030: pocketEndWall
     7400000: Default Take
     9500000: //RootNode
   materials:
